@@ -453,8 +453,8 @@ FUNCTIONS_TO_SKIP = [
     ("filter.h", "removeNaNNormalsFromPointCloud"),  # (fixable) PointT XYZ and Normal point types for 2 functions
     ("transforms.h", "transformPointCloudWithNormals"),  # (fixable) PointT XYZ and Normal point types for 2 functions
     ("transforms.h", "transformPointWithNormal"),  # (fixable) PointT XYZ and Normal point types for 2 functions
-    ("intersections.h", "planeWithPlaneIntersection"),  # couldn't deduce template parameter ‘Return’
-    ("intersections.h", "threePlanesIntersection"),  # couldn't deduce template parameter ‘Return’
+    ("intersections.h", "planeWithPlaneIntersection"),  # couldn't deduce template parameter 'Return'
+    ("intersections.h", "threePlanesIntersection"),  # couldn't deduce template parameter 'Return'
 
     # todo: I think most of these could be removed. They were added before I realized there was a bug.
     ("io.h", "copyPointCloud"),  # no matching overload found...
@@ -516,7 +516,7 @@ METHODS_TO_SKIP = [
     ("PCLHistogramVisualizer", "wasStopped"),  # only in vtk 5
     ("PCLHistogramVisualizer", "resetStoppedFlag"),  # only in vtk 5
     ("PCLVisualizerInteractorStyle", "vtkTypeMacro"),  # this is a macro?
-    ("OctreePointCloudVoxelCentroid", "getVoxelCentroidAtPoint"),  # error: ‘genOctreeKeyforPoint’ was not declared in this scope
+    ("OctreePointCloudVoxelCentroid", "getVoxelCentroidAtPoint"),  # error: 'genOctreeKeyforPoint' was not declared in this scope
 
     ("RSDEstimation", "getHistograms"),  # must declare class for return value: boost::shared_ptr<std::vector<Eigen::MatrixXf, Eigen::aligned_allocator<Eigen::MatrixXf> > >
 ]
