@@ -28,7 +28,7 @@ DESCRIPTION = 'Python bindings for the Point Cloud Library'
 URL = 'https://www.github.com/davidcaron/pclpy'
 EMAIL = 'dcaron05@gmail.com'
 AUTHOR = 'David Caron'
-REQUIRES_PYTHON = '==3.6.*'
+REQUIRES_PYTHON = '>=2.7,!=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
 VERSION = None
 
 PCL_VERSION = "1.8"
@@ -453,6 +453,7 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: Implementation :: CPython',
     ],
     cmdclass={
