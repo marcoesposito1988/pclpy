@@ -1,6 +1,5 @@
 from functools import partial
 from itertools import product
-from typing import List, Tuple, Dict
 
 import yaml
 
@@ -175,7 +174,7 @@ def filter_types(types):
     return list(set(types[:1] + rgba + xyz))
 
 
-def unpack_point_types(types_info: List, not_every_point_type: bool):
+def unpack_point_types(types_info, not_every_point_type):
     point_types = []
     for info in types_info:
         if isinstance(info[0], str):
@@ -200,7 +199,7 @@ def fix_templated_inheritance(inherits):
     return inherits
 
 
-def get_template_typenames_with_defaults(template: str) -> Dict[str, str]:
+def get_template_typenames_with_defaults(template):
     template_typenames = {}
     splitters = ["typename", "class"]
     if template:
@@ -224,7 +223,7 @@ def get_class_namespace(class_name):
     return class_name[class_name.rfind("::"):]
 
 
-def split_templated_class_name(class_name: str) -> Tuple:
+def split_templated_class_name(class_name):
     """
     Example:
         "OctreePointCloud<PointT, LeafContainerT, BranchContainerT>::Ptr"
@@ -281,7 +280,7 @@ def format_type_with_namespace(type_,
     return type_
 
 
-def fix_cppheaderparser_bugs(inheritance: List[str]) -> List[str]:
+def fix_cppheaderparser_bugs(inheritance):
     replace = {
         "constOctreeNode": "const OctreeNode",
     }

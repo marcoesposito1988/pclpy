@@ -1,5 +1,4 @@
 from collections import defaultdict
-from typing import Dict, Set
 
 from generators.config import GLOBAL_PCL_IMPORTS
 
@@ -28,7 +27,7 @@ def make_pybind_argument_list(cpp_parameters):
     return ", " + names
 
 
-def get_default_parameters_types() -> Dict[str, Set[str]]:
+def get_default_parameters_types():
     default_parameters_types = defaultdict(set)
     for param in all_default_types_by_namespace:
         namespace = param["method"]["namespace"]

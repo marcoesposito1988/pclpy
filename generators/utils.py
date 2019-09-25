@@ -1,7 +1,7 @@
 import sys
 from collections import OrderedDict
 from os.path import join
-from typing import List
+import io
 from unidecode import unidecode
 
 from inflection import camelize
@@ -17,7 +17,7 @@ def make_header_include_name(module, header_name, path=None, path_only=False):
         return "#include <pcl/%s>" % name
 
 
-def make_namespace_class(namespace, class_name) -> str:
+def make_namespace_class(namespace, class_name):
     while namespace.endswith(":"):
         namespace = namespace[:-1]
     class_name = class_name.strip()
@@ -123,7 +123,7 @@ def parentheses_are_balanced(line, parenthesis):
     return not stack
 
 
-def split_overloads(methods, needs_overloading: List[str] = None):
+def split_overloads(methods, needs_overloading = None):
     if needs_overloading is None:
         needs_overloading = []
     overloads, unique = [], []
@@ -180,7 +180,7 @@ def read_header_file(header_path, skip_macros):
     multiple_pcl_header_encodings = ["utf8", "ascii", "windows-1252"]
     for encoding in multiple_pcl_header_encodings:
         try:
-            header_lines = open(header_path, encoding=encoding).readlines()
+            header_lines = io.open(header_path, encoding=encoding).readlines()
             break
         except UnicodeDecodeError:
             if encoding == multiple_pcl_header_encodings[-1]:

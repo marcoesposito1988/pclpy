@@ -1,6 +1,5 @@
 from collections import defaultdict, OrderedDict
 from itertools import product
-from typing import List
 
 from CppHeaderParser import CppMethod
 from inflection import camelize
@@ -44,7 +43,7 @@ def get_methods_defined_outside(cppfunctions):
     return filtered
 
 
-def generate_function_definitions(cppfunctions: List[CppMethod],
+def generate_function_definitions(cppfunctions,
                                   module_name,
                                   header_name,
                                   indent="",

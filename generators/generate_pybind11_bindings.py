@@ -5,7 +5,6 @@ import sys
 from collections import Counter
 from collections import defaultdict, OrderedDict
 from os.path import join
-from typing import List, Dict, Set
 
 from CppHeaderParser import CppHeaderParser
 from CppHeaderParser.CppHeaderParser import CppMethod
@@ -42,12 +41,12 @@ def filter_methods_to_skip(methods):
     return filtered_methods
 
 
-def same_parameters(p1: Dict, p2: Dict) -> bool:
+def same_parameters(p1, p2):
     fields = ["constant", "name", "raw_type", "reference", "static"]
     return all(p1[f] == p2[f] for f in fields)
 
 
-def same_methods(m1: CppMethod, m2: CppMethod) -> bool:
+def same_methods(m1, m2):
     if m1["name"] != m2["name"]:
         return False
 
@@ -68,8 +67,8 @@ def same_methods(m1: CppMethod, m2: CppMethod) -> bool:
     return len(m1["parameters"]) == len(m2["parameters"])
 
 
-def private_methods_defined_outside(private_methods: List[CppMethod],
-                                    methods_declared_outside: List[CppMethod]) -> List[CppMethod]:
+def private_methods_defined_outside(private_methods,
+                                    methods_declared_outside):
     private_defined_outside = []
     for m_private in private_methods:
         for m_outside in methods_declared_outside:
@@ -83,8 +82,8 @@ def generate_class_definitions(main_classes,
                                module,
                                header_name,
                                path,
-                               needs_overloading: List[str],
-                               methods_defined_outside: List[CppMethod]) -> str:
+                               needs_overloading,
+                               methods_defined_outside):
     text = []
     a = text.append
     a(common_includes)
@@ -167,7 +166,7 @@ def get_functions(header, module):
     return filtered
 
 
-def filter_module_level_functions(functions: List[CppMethod]):
+def filter_module_level_functions(functions):
     filtered = []
     for f in functions:
         keep = True
@@ -208,7 +207,7 @@ def read_header(header_path, skip_macros=None):
 def clean():
     try:
         os.remove(PATH_LOADER)
-    except FileNotFoundError:
+    except EnvironmentError:
         pass
     if os.path.exists(PATH_MODULES):
         shutil.rmtree(PATH_MODULES)
@@ -264,12 +263,12 @@ def get_headers(modules=None, skip_modules=None):
     return headers_to_generate_temp
 
 
-def get_pure_virtual_methods(class_: CppHeaderParser.CppClass) -> Set[str]:
+def get_pure_virtual_methods(class_):
     access = "private protected public".split()
     return set([m["name"] for a in access for m in class_["methods"][a] if m["pure_virtual"]])
 
 
-def get_all_class_methods_not_pure_virtual(class_: CppHeaderParser.CppClass) -> Set[str]:
+def get_all_class_methods_not_pure_virtual(class_):
     access = "private protected public".split()
     return set([m["name"] for a in access for m in class_["methods"][a] if not m["pure_virtual"]])
 
@@ -358,7 +357,7 @@ def delete_other_dirs(modules):
             shutil.rmtree(folder, ignore_errors=True)
 
 
-def write_stuff_if_needed(generated_headers: OrderedDict, delete_others=True):
+def write_stuff_if_needed(generated_headers, delete_others=True):
     modules = set(module for module, _ in generated_headers.keys())
 
     make_module_dirs(modules)
@@ -387,9 +386,9 @@ def write_stuff_if_needed(generated_headers: OrderedDict, delete_others=True):
         delete_other_dirs(modules)
 
 
-def generate(headers_to_generate, skip_macros, not_every_point_type=False) -> OrderedDict:
+def generate(headers_to_generate, skip_macros, not_every_point_type=False):
     """
-    :return: OrderedDict
+    :return
     """
     main_classes, module_functions, module_variables, module_enums = {}, {}, {}, {}
 
@@ -407,7 +406,7 @@ def generate(headers_to_generate, skip_macros, not_every_point_type=False) -> Or
     dependency_tree = generators.dependency_tree.DependencyTree(classes)
 
     loaded_point_types = load_yaml_point_types(not_every_point_type)
-    classes_point_types: OrderedDict = dependency_tree.get_point_types_with_dependencies(loaded_point_types)
+    classes_point_types = dependency_tree.get_point_types_with_dependencies(loaded_point_types)
 
     classes_sorted_base_first = list(dependency_tree.leaf_iterator())
 
@@ -424,7 +423,7 @@ def generate(headers_to_generate, skip_macros, not_every_point_type=False) -> Or
 
     flag_instantiatable_class(dependency_tree, main_classes)
 
-    def generate_header(module, header, path, keep_if_no_instantiation) -> str:
+    def generate_header(module, header, path, keep_if_no_instantiation):
         header_functions = module_functions[(module, header)]
         header_classes = main_classes[(module, header)]
 

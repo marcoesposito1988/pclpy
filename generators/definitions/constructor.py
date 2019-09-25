@@ -7,7 +7,7 @@ from generators.utils import clean_doxygen
 
 
 class Constructor:
-    def __init__(self, constructor: CppMethod):
+    def __init__(self, constructor):
         """
         Generates definition for a class constructor
         Example:

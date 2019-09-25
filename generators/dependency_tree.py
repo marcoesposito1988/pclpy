@@ -1,5 +1,4 @@
 from collections import defaultdict, OrderedDict, deque
-from typing import List, Dict, Generator
 
 from CppHeaderParser import CppClass
 
@@ -9,7 +8,7 @@ from generators.utils import make_namespace_class
 
 
 class DependencyTree:
-    def __init__(self, classes: List[CppClass]):
+    def __init__(self, classes):
         """
 
         :param classes:
@@ -26,7 +25,7 @@ class DependencyTree:
 
         self.n_template_point_types = {k: len(v) for inheritance in self.tree.values() for k, v in inheritance.items()}
 
-    def reversed_breadth_first_iterator(self) -> List[str]:
+    def reversed_breadth_first_iterator(self):
         """Like breadth_first_iterator, but starts from the base classes."""
         classes_breadth_first = list(self.breadth_first_iterator())
         seen = set()
@@ -37,7 +36,7 @@ class DependencyTree:
                 seen.add(c)
         return list(reversed(unique))
 
-    def breadth_first_iterator(self, start_class=None) -> Generator[str, None, None]:
+    def breadth_first_iterator(self, start_class=None):
         """
         Yields every class that aren't inherited elsewhere, then all their first inherited classes, etc.
         :param start_class: class name to start from.
@@ -80,7 +79,7 @@ class DependencyTree:
     def split_namespace_class(self, class_):
         return class_[:class_.rfind("::")], class_[class_.rfind("::") + 2:]
 
-    def get_point_types_with_dependencies(self, classes_point_types: Dict) -> OrderedDict:
+    def get_point_types_with_dependencies(self, classes_point_types):
         types = OrderedDict()
 
         def add_to_dict(key, data):

@@ -4,7 +4,7 @@ from generators.config import INDENT
 
 
 class Enum:
-    def __init__(self, enum: CppVariable):
+    def __init__(self, enum):
         """
         Generates definition for an enum
         Example:

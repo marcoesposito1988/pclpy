@@ -1,7 +1,6 @@
 import re
 from collections import OrderedDict
 from itertools import chain, product
-from typing import List
 
 from CppHeaderParser import CppMethod, CppVariable
 
@@ -15,7 +14,7 @@ from generators.utils import make_namespace_class, clean_doxygen
 
 
 class Method:
-    def __init__(self, method: CppMethod, is_an_overload=False):
+    def __init__(self, method, is_an_overload=False):
         """
         Generates definition for a method
         Example:
@@ -213,7 +212,7 @@ class Method:
         return "<Method %s>" % (self.name,)
 
 
-def flag_templated_methods(methods: List[Method]):
+def flag_templated_methods(methods):
     for method in methods:
         method_name = method.cppmethod["name"]
         if "operator" in method_name:
@@ -249,7 +248,7 @@ def template_types_generator(type_names, header_or_class_name, method_name):
         yield type_name, types
 
 
-def flag_overloaded_methods(methods: List[Method], needs_overloading: List[str] = None):
+def flag_overloaded_methods(methods, needs_overloading = None):
     templated_method_names = [m.cppmethod["name"] for m in methods if m.templated_types]
     # flag methods that need to be called with a lambda (same name and same parameters as a templated method)
     for method in methods:
@@ -265,7 +264,7 @@ def flag_overloaded_methods(methods: List[Method], needs_overloading: List[str] 
             method.is_an_overload = False
 
 
-def filter_static_and_non_static_methods(methods: List[Method]):
+def filter_static_and_non_static_methods(methods):
     static = set(m.cppmethod["name"] for m in methods if m.cppmethod["static"])
     not_static = set(m.cppmethod["name"] for m in methods if not m.cppmethod["static"])
     both = static & not_static
@@ -281,9 +280,9 @@ def filter_static_and_non_static_methods(methods: List[Method]):
     return filtered
 
 
-def split_methods_by_type(methods: List[CppMethod],
-                          class_variables: List[CppVariable],
-                          needs_overloading: List[str]):
+def split_methods_by_type(methods,
+                          class_variables,
+                          needs_overloading):
     constructors_methods = [m for m in methods if m["constructor"] and
                             not is_copy_constructor(m) and m["name"] == m["parent"]["name"]]
     copy_const = [m for m in methods if m["constructor"] and is_copy_constructor(m)]

@@ -1,5 +1,4 @@
 import re
-from typing import List
 
 from CppHeaderParser import CppClass
 from inflection import camelize
@@ -18,11 +17,11 @@ class ClassDefinition:
     CLS_VAR = "cls"
 
     def __init__(self,
-                 class_: CppClass,
-                 constructors: List[Constructor],
-                 variables: List[Variable],
-                 other_methods: List[Method],
-                 sub_module: str):
+                 class_,
+                 constructors,
+                 variables,
+                 other_methods,
+                 sub_module):
         """
         Generates a templated function to define a pybind11 py::class_ with its methods and properties
 
@@ -90,7 +89,7 @@ class ClassDefinition:
     def typedefs(self):
         return self.class_["typedefs"]["public"]
 
-    def to_class_function_definition(self, ind="") -> str:
+    def to_class_function_definition(self, ind=""):
         """
         template <typename PointInT, typename PointOutT>
         void define...(py::module &m, std::string const & suffix) { ... }

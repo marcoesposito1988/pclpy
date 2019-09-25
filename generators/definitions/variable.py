@@ -2,7 +2,7 @@ from CppHeaderParser import CppVariable
 
 
 class Variable:
-    def __init__(self, variable: CppVariable):
+    def __init__(self, variable):
         """
         Generates definition for a variable
         Example:

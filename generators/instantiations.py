@@ -1,6 +1,5 @@
 import re
 from collections import OrderedDict
-from typing import List, Dict
 
 from CppHeaderParser import CppClass, CppVariable
 from inflection import camelize
@@ -14,12 +13,12 @@ from generators.utils import function_definition_name
 
 class Instantiations:
     def __init__(self,
-                 sorted_classes: List[CppClass],
-                 module: str,
-                 header_name: str,
-                 classes_point_types: OrderedDict,
-                 variables: List[CppVariable],
-                 enums: List[CppVariable],
+                 sorted_classes,
+                 module,
+                 header_name,
+                 classes_point_types,
+                 variables,
+                 enums,
                  ):
         """
         Generate templated function calls that instantiate pybind11 classes
@@ -38,7 +37,7 @@ class Instantiations:
         self.variables = variables
         self.enums = enums
 
-    def repr_sub_module(self, class_name: str):
+    def repr_sub_module(self, class_name):
         """
         Create a submodule for each templated class
         """

@@ -3,7 +3,7 @@ import os
 from . import las
 
 
-def read(path: str, point_type: str, xyz_offset=None):
+def read(path, point_type, xyz_offset=None):
     """
     Read a point cloud by guessing the filetype from its extension.
     """
