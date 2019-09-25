@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 from . import pcl
-from .view.vtk import Viewer
+# from .view.vtk import Viewer
 
 from . import utils
 from .utils import register_point_cloud_function, register_alias
@@ -286,9 +286,9 @@ def fit(cloud, model, distance, method=pcl.sample_consensus.SAC_RANSAC, indices=
     return inliers, coefficients
 
 
-@register_point_cloud_function
-def show(cloud, *other_clouds, **kwargs):
-    """
-    Show the point cloud using the default pclpy.Viewer
-    """
-    Viewer(cloud, *other_clouds, **kwargs).show()
+# @register_point_cloud_function
+# def show(cloud, *other_clouds, **kwargs):
+#     """
+#     Show the point cloud using the default pclpy.Viewer
+#     """
+#     Viewer(cloud, *other_clouds, **kwargs).show()
