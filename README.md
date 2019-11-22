@@ -156,6 +156,14 @@ and the _what to skip_ section in `generators/config.py`)
     - --msvc-no-code-link makes linking much faster (do not use for releases, see setup.py description)
     - --use-clcache to cache msvc builds using clcache (must be installed)
     - --debug to build in debug mode
+    
+#### Ubuntu 18.04
+- Install libpcl-dev
+- Install dependencies (check out the repository, go into it, and execute `python setup.py install`, or `python setup.py install --user` if not using a virtualenv):
+    - Install pybind11 from github (2.3dev version) it includes a necessary bug fix
+    - Install CppHeaderParser from https://github.com/davidcaron/CppHeaderParser (specific bug fixes)
+- go into generators and execute `PYTHONPATH=.. python generate_pybind11_bindings.py`
+- go back into repo's root, execute `python setup.py install` (or `python setup.py install --user` if not using a virtualenv)
 
 ## Roadmap
 - Wrap as much of PCL as reasonably possible
