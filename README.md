@@ -43,7 +43,7 @@ to download a PCL release or build it.
 
 #### Linux
 
-Not working for now. Contributions are welcome!
+Build instructions below 
 
 ## Features
 - All point types are implemented (those specified by the default msvc compile flags)
@@ -158,6 +158,8 @@ and the _what to skip_ section in `generators/config.py`)
     - --debug to build in debug mode
     
 #### Ubuntu 18.04
+WARNING: requires at least 20G of RAM (according to top on my machine)
+
 - Install libpcl-dev
 - Install dependencies (check out the repository, go into it, and execute `python setup.py install`, or `python setup.py install --user` if not using a virtualenv):
     - Install pybind11 from github (2.3dev version) it includes a necessary bug fix
