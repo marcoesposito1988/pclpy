@@ -164,6 +164,7 @@ WARNING: requires at least 20G of RAM (according to top on my machine)
 - Install dependencies (check out the repository, go into it, and execute `python setup.py install`, or `python setup.py install --user` if not using a virtualenv):
     - Install pybind11 from github (2.3dev version) it includes a necessary bug fix
     - Install CppHeaderParser from https://github.com/davidcaron/CppHeaderParser (specific bug fixes)
+    - Install further dependencies: `pip install unidecode inflection` (remember the `--user` if needed)
 - go into generators and execute `PYTHONPATH=.. python generate_pybind11_bindings.py`
 - go back into repo's root, execute `python setup.py install` (or `python setup.py install --user` if not using a virtualenv)
 
