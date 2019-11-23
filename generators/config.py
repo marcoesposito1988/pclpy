@@ -293,6 +293,7 @@ SPECIFIC_TEMPLATED_METHOD_TYPES = {
     # (ShapeContext1980, UniqueShapeContext1960) and (SHOT352, SHOT1344) have fields of the same name
     # this is a workaround
     ("copy_point.h", "", ("PointInT", "PointOutT")): ("PCL_XYZ_POINT_TYPES", "PCL_XYZ_POINT_TYPES"),
+    ("io.h", "", ("PointInT", "PointOutT")): ("PCL_XYZ_POINT_TYPES", "PCL_XYZ_POINT_TYPES"),
 
     ("Camera", "", ("PointT",)): (pcl_visualizer_xyz,),
     ("PCLVisualizer", "", ("PointT",)): (pcl_visualizer_xyz,),
@@ -355,6 +356,10 @@ EXTRA_FUNCTIONS = {
             v.setupInteractor(vtk_interactor, v.getRenderWindow().Get());
         {cb});"""
     ,
+}
+
+OVERLOADED_TEMPLATED_FUNCTIONS_TO_INCLUDE = {
+    'copyPointCloud'
 }
 
 # ------------
@@ -457,7 +462,7 @@ FUNCTIONS_TO_SKIP = [
     ("intersections.h", "threePlanesIntersection"),  # couldn't deduce template parameter 'Return'
 
     # todo: I think most of these could be removed. They were added before I realized there was a bug.
-    ("io.h", "copyPointCloud"),  # no matching overload found...
+    # ("io.h", "copyPointCloud"),  # no matching overload found...
     ("io.h", "getFieldIndex"),  # no matching overload found...
     ("io.h", "getApproximateIndices"),  # kdtree/io.h no matching overload found...
     ("voxel_grid.h", "getMinMax3D"),  # no matching overload found...

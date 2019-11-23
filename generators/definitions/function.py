@@ -4,7 +4,7 @@ from itertools import product
 from CppHeaderParser import CppMethod
 from inflection import camelize
 
-from generators.config import INDENT, FUNCTIONS_TO_SKIP
+from generators.config import INDENT, FUNCTIONS_TO_SKIP, OVERLOADED_TEMPLATED_FUNCTIONS_TO_INCLUDE
 from generators.definitions.method import Method
 from generators.definitions.method import filter_template_types, template_types_generator
 from generators.point_types_utils import filter_types
@@ -30,7 +30,10 @@ def filter_functions(cppfunctions, header_name):
                                              for other in by_name[f["name"]]
                                              if not other == f)
         if other_templated_with_same_name:
-            continue
+            if f['name'] in OVERLOADED_TEMPLATED_FUNCTIONS_TO_INCLUDE:
+                print('Adding overload for templated function {}'.format(f['name']))
+            else:
+                continue
         filtered.append(f)
     return filtered
 
